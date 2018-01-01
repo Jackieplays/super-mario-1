@@ -21,11 +21,12 @@ function setupBackgrounds(levelSpec, level, backgroundSprites) {
 }
 
 function setupEntities(levelSpec, level, entityFactory) {
+    const ts = level.tileCollider.tiles.tileSize;
     levelSpec.entities.forEach(({name, pos}) => {
         const createEntity = entityFactory[name];
         pos.forEach(([x, y]) => {
             const entity = createEntity();
-            entity.pos.set(x, y);
+            entity.pos.set(x * ts, y * ts);
             level.entities.add(entity);
         });            
     });    
