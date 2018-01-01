@@ -19,6 +19,10 @@ function createMarioFactory(sprite) {
     const runAnim = sprite.animations.get('run');
 
     function routeFrame(mario) {
+        if (mario.killable.dead) {
+            return 'dead';
+        }
+        
         if (mario.jump.falling) {
             return 'jump';
         }
@@ -53,7 +57,15 @@ function createMarioFactory(sprite) {
         mario.addTrait(new Killable());
         mario.addTrait(new Stomper());
 
-        mario.killable.removeAfter = 0;
+        mario.killable.removeAfter = 3;
+        mario.killable.kill = () => {
+            mario.vel = {x: 0, y: -300}
+            mario.solid.obstructs = false;
+            mario.stomper.bounce = (us, them) => {}
+            mario.stomper.collides = (us, them) => {}
+
+            mario.killable.queue(() => mario.killable.dead = true);
+        }
 
         mario.turbo = setTurboState;
         mario.draw = drawMario;
