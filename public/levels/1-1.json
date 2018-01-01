@@ -153,6 +153,16 @@
                     ]
                 },
                 {
+                    "name": "ground",
+                    "type": "ground",
+                    "ranges": [
+                        [
+                            -1, 1,
+                            0, 15
+                        ]
+                    ]
+                },
+                {
                     "name": "sky",
                     "ranges": [
                         [
