@@ -59,7 +59,7 @@ function createMarioFactory(sprite) {
 
         mario.killable.removeAfter = 3;
         mario.killable.kill = () => {
-            mario.vel = {x: 0, y: -300}
+            mario.vel.set(0, -300);
             mario.solid.obstructs = false;
             mario.stomper.bounce = (us, them) => {}
             mario.stomper.collides = (us, them) => {}
