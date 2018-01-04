@@ -38,6 +38,9 @@ class Behavior extends Trait {
             } else {
                 this.handleNudge(us, them);
             }
+        } else if (them.killable && us.behavior.state === STATE_PANIC) {
+            console.log(us, us.behavior.state)
+            them.killable.kill();
         }
     }
 
