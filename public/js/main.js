@@ -8,11 +8,12 @@ import {loadEntities} from './entities.js';
 import {setupKeyboard} from './input.js';
 import {createCollisionLayer} from './layers/collision.js';
 import {createDashboardLayer} from './layers/dashboard.js';
+import {createTileIndexLayer} from './layers/tileIndex.js';
 
 function createPlayerEnv(playerEntity) {
     const playerEnv = new Entity();
     const playerControl = new PlayerController();
-    playerControl.checkpoint.set(64, 64);
+    playerControl.checkpoint.set(4 * 16, 0 * 16);
     playerControl.setPlayer(playerEntity);
     playerEnv.addTrait(playerControl);
     return playerEnv;
@@ -33,10 +34,11 @@ async function main(canvas) {
     const camera = new Camera();
 
     const mario = entityFactory.mario();
-
+    
     const playerEnv = createPlayerEnv(mario);
     level.entities.add(playerEnv);
 
+    //level.comp.layers.push(createTileIndexLayer(level, font));
 
     //level.comp.layers.push(createCollisionLayer(level));
     level.comp.layers.push(createDashboardLayer(font, playerEnv));
