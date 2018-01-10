@@ -59,10 +59,13 @@ function createMarioFactory(sprite) {
 
         mario.killable.removeAfter = 3;
         mario.killable.kill = () => {
-            mario.vel.set(0, -300);
-            mario.solid.obstructs = false;
-            mario.stomper.bounce = (us, them) => {}
-            mario.stomper.collides = (us, them) => {}
+            mario.vel.set(0, -400);
+            mario.physics.update = (entity, deltaTime, level) => {
+                entity.pos.y += entity.vel.y * deltaTime;
+                entity.vel.y += 0.6 * level.gravity * deltaTime;
+            }
+            //mario.obstructs = (side, match) => {}
+            mario.__proto__.collides = (us, them) => {}
 
             mario.killable.queue(() => mario.killable.dead = true);
         }
