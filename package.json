@@ -2,14 +2,22 @@
   "name": "super-mario",
   "version": "1.0.0",
   "description": "",
+  "engines": {
+    "node": "6.11.1"
+  },
   "main": "index.js",
   "scripts": {
     "start": "serve ./public",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "keywords": [
+    "example",
+    "heroku"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "serve": "^6.1.0"
+    "serve": "^6.1.0",
+    "express": "^4.9.8"
   }
 }
