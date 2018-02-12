@@ -7,6 +7,7 @@ import {loadFont} from './loaders/font.js';
 import {loadEntities} from './entities.js';
 import {setupKeyboard} from './input.js';
 import {createCollisionLayer} from './layers/collision.js';
+import {createStartScreen} from './layers/startScreen.js';
 import {createDashboardLayer} from './layers/dashboard.js';
 import {createTileIndexLayer} from './layers/tileIndex.js';
 
@@ -39,12 +40,21 @@ async function main(canvas) {
     level.entities.add(playerEnv);
 
     //level.comp.layers.push(createTileIndexLayer(level, font));
-
     //level.comp.layers.push(createCollisionLayer(level));
-    level.comp.layers.push(createDashboardLayer(font, playerEnv));
+    
+    const startScreen = level.comp.layers.push(createStartScreen(font)) - 1
+    const start = () => {
+        level.comp.layers.splice(startScreen);
+        level.comp.layers.push(createDashboardLayer(font, playerEnv));
 
-    const input = setupKeyboard(mario);
-    input.listenTo(window);
+        const input = setupKeyboard(mario);
+        input.listenTo(window);
+
+        document.removeEventListener('keydown', start);
+    }
+    document.addEventListener('keydown', start)
+
+    
 
     const timer = new Timer(1/60);
     timer.update = function update(deltaTime) {
